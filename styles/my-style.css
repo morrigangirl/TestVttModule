@@ -1,0 +1,14 @@
+.chat-popper-button {
+    background-color: #5c2d91; /* Purple button */
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.chat-popper-button:hover {
+    background-color: #7b4fbf;
+}
