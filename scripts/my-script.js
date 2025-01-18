@@ -1,8 +1,8 @@
-// Hook into Foundry's ready event
+// Hook into Foundry's "ready" event
 Hooks.on("ready", () => {
     console.log("MorriganGirl's Chat Popper | Module is ready!");
 
-    // Hook into rendering the Chat Log sidebar
+    // Hook into the rendering of the Chat Log sidebar
     Hooks.on("renderChatLog", (app, html) => {
         // Add a custom button to the Chat Log footer
         const button = $(`
@@ -21,17 +21,17 @@ Hooks.on("ready", () => {
     });
 });
 
-// Function to send a message to the chat
+// Function to send a chat message
 function popChatMessage() {
     // Content of the chat message
     const content = `
         <p><strong>📢 GM Announcement:</strong> Hello, adventurers! This is a broadcast from MorriganGirl's Chat Popper.</p>
     `;
 
-    // Send the message to the chat, visible to all players
+    // Create and send the chat message
     ChatMessage.create({
         content: content,
-        whisper: [], // Empty array ensures all players see the message
+        whisper: [], // Sends to all players
         speaker: {
             alias: "MorriganGirl's Chat Popper"
         }
