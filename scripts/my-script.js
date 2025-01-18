@@ -4,6 +4,7 @@ Hooks.on("ready", () => {
 
     // Hook into the rendering of the Chat Log sidebar
     Hooks.on("renderChatLog", (app, html) => {
+        console.log("renderChatLog hook triggered");
         // Add a custom button to the Chat Log footer
         const button = $(`
             <button class="chat-popper-button">
