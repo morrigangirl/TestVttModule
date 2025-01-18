@@ -1,42 +1,40 @@
-// Hook into Foundry's "ready" event
+// Hook into the 'ready' event
 Hooks.on("ready", () => {
-    console.log("MorriganGirl's Chat Popper | Module is ready!");
+    console.log("MorriganGirl's Popup | Showing Hello Window");
 
-    // Hook into the rendering of the Chat Log sidebar
-    Hooks.on("renderChatLog", (app, html) => {
-        console.log("renderChatLog hook triggered");
-        // Add a custom button to the Chat Log footer
-        const button = $(`
-            <button class="chat-popper-button">
-                <i class="fas fa-bullhorn"></i> Pop a Message
-            </button>
-        `);
-
-        // Append the button to the Chat Log footer
-        html.find(".directory-footer").append(button);
-
-        // Add click event listener to the button
-        button.on("click", () => {
-            popChatMessage();
-        });
-    });
+    // Create and render the popup
+    const helloPopup = new HelloPopup();
+    helloPopup.render(true);
 });
 
-// Function to send a chat message
-function popChatMessage() {
-    // Content of the chat message
-    const content = `
-        <p><strong>📢 GM Announcement:</strong> Hello, adventurers! This is a broadcast from MorriganGirl's Chat Popper.</p>
-    `;
+// Define a new FormApplication class for the popup
+class HelloPopup extends FormApplication {
+    // Default options for the popup
+    static get defaultOptions() {
+        return mergeObject(super.defaultOptions, {
+            title: "Hello Popup", // Window title
+            id: "hello-popup", // Unique ID for this application
+            template: "modules/your-module/templates/hello-popup.html", // Template file (inline example below)
+            width: 300, // Window width
+            height: "auto", // Automatic height
+            closeOnSubmit: false, // Prevent form from closing on submit
+            resizable: false, // Disable resizing
+        });
+    }
 
-    // Create and send the chat message
-    ChatMessage.create({
-        content: content,
-        whisper: [], // Sends to all players
-        speaker: {
-            alias: "MorriganGirl's Chat Popper"
-        }
-    });
+    // Provide data to the Handlebars template
+    getData() {
+        return {
+            message: "Hello, adventurer!", // The message to display
+        };
+    }
 
-    console.log("MorriganGirl's Chat Popper | Message sent to chat.");
+    // Handle form button clicks
+    activateListeners(html) {
+        super.activateListeners(html);
+        html.find(".clear-button").click(() => {
+            console.log("MorriganGirl's Popup | Clear button clicked");
+            this.close(); // Close the popup
+        });
+    }
 }
